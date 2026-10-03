@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>project management</title>
+   <style>
+    *{
+        margin: 5px;
+        padding: 0px;
+        box-sizing: border-box;
+        background-color:lightgray;
+    }
+   .d1{border: 5px;
+        border-radius: 20px;
+        background-color: black;
+        
+    }
+   </style>
+
+</head>
+
+<body>
+
+    <center><div class="d1">
+        <h1>Project Manager</h1>
+        <table  border="3px">
+            <thead>
+                <tr>
+                    <th>Project Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Project Name</td>
+                    <td><input type="text" placeholder="Project Name"></td>
+                </tr>
+            </tbody>
+            <thead>
+                <tr>
+                    <th> <b>Assingned to</b></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Assingned to</td>
+                    <td><select name="dropdown" id="">
+                            <option value="Talha">Talha</option>
+                            <option value="Arsalan">Arsalan</option>
+                            <option value="Ahmad">Ahmad</option>
+                        </select></td>
+                </tr>
+            </tbody>
+            <thead>
+                <tr>
+                    <th><b>Start Date</b></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Start Date</td>
+                    <td><input type="datetime-local"></td>
+                </tr>
+            </tbody>
+            <thead>
+                <tr>
+                    <th>End Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>End Date</td>
+                    <td><input type="datetime"></td>
+                </tr>
+            </tbody>
+            <thead>
+                <tr>
+                    <th><b>Priority</b></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Priority</td>
+                    <td><input type="radio">High
+                        <input type="radio">Average
+                        <input type="radio">Low
+                    </td>
+                </tr>
+            </tbody>
+            <thead>
+                <tr>
+                    <th><button>Submit</button></th>
+                    <th><button>Clear</button></th>
+                </tr>
+            </thead>
+        </table>
+    </div></center>
+</body>
+
+</html>

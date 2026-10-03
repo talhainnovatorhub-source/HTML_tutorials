@@ -1,0 +1,110 @@
+* {
+    margin: 10px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.head {
+    font-weight: 500;
+    font-size: xx-large;
+    text-align: center;
+}
+
+.parent {
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+
+}
+
+.p {
+    font-size: medium;
+}
+
+
+.d1 {
+    height: 300px;
+    width: 300px;
+    padding-top: 35px;
+
+}
+
+.d1 img {
+    height: 150px;
+    width: 250px;
+}
+
+.d1:hover {
+    background-color: antiquewhite;
+    box-shadow: 7px 7px 15px black;
+    transition: all 1s steps(2);
+
+}
+
+.d2 {
+    height: 300px;
+    width: 300px;
+    padding-top: 35px;
+
+}
+
+.d2 img {
+    height: 150px;
+    width: 250px;
+}
+
+.d2:hover {
+    background-color: antiquewhite;
+    box-shadow: 7px 7px 15px black;
+    transition: all 1s steps(2)
+}
+
+.d3 {
+    height: 300px;
+    width: 300px;
+    padding-top: 35px;
+
+}
+
+.d3 img {
+    height: 150px;
+    width: 250px;
+}
+
+.d3:hover {
+    background-color: #35363B;
+    box-shadow: 7px 7px 15px black;
+    transition: all 1s steps(2)
+}
+
+
+.d4 {
+    height: 300px;
+    width: 300px;
+    padding-top: 35px;
+
+}
+
+.d4 img {
+    height: 150px;
+    width: 250px;
+}
+
+.d4:hover {
+    background-color: antiquewhite;
+    box-shadow: 7px 7px 15px black;
+    transition: all 1s steps(2)
+}
+.logo1{
+    height: 80px;
+    width: 60px;
+}
+.footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}

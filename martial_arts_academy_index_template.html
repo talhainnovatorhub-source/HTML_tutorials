@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VALOR & HONOR | Elite Martial Arts Academy</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Oswald:wght@400;600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #0a0a0c;
+            --bg-card: #141418;
+            --bg-card-hover: #1c1c22;
+            --primary-red: #dc2626;
+            --primary-red-glow: rgba(220, 38, 38, 0.4);
+            --accent-gold: #d97706;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-color: #27272a;
+            --font-title: 'Oswald', sans-serif;
+            --font-display: 'Cinzel', serif;
+            --font-body: 'Poppins', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(10, 10, 12, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 2rem;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--text-main);
+            text-decoration: none;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--primary-red);
+        }
+
+        .logo i {
+            color: var(--accent-gold);
+        }
+
+        /* Pure CSS Mobile Navigation Toggle (Checkbox Hack) */
+        .nav-toggle {
+            display: none;
+        }
+
+        .nav-toggle-label {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text-main);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-main);
+            text-decoration: none;
+            font-family: var(--font-title);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-red);
+        }
+
+        .btn-cta {
+            background: linear-gradient(135deg, var(--primary-red), #991b1b);
+            color: #fff;
+            padding: 0.75rem 1.8rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-family: var(--font-title);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px var(--primary-red-glow);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: inline-block;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.6);
+            background: linear-gradient(135deg, #ef4444, #b91c1c);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-main);
+            padding: 0.75rem 1.8rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-family: var(--font-title);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid var(--text-muted);
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 2rem 4rem 2rem;
+            /* High-quality Unsplash MMA/Combat Martial Arts Background Image */
+            background: linear-gradient(to right, rgba(10, 10, 12, 0.95) 0%, rgba(10, 10, 12, 0.75) 50%, rgba(10, 10, 12, 0.95) 100%),
+                        linear-gradient(to bottom, rgba(10, 10, 12, 0.4), var(--bg-dark)),
+                        url('https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-title);
+            color: var(--accent-gold);
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 4.8rem);
+            line-height: 1.1;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+        }
+
+        .hero-title span {
+            color: var(--primary-red);
+            background: linear-gradient(135deg, #ef4444, #991b1b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-description {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 750px;
+            margin: 0 auto 2.5rem auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 4rem;
+        }
+
+        .hero-badges {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+        }
+
+        .badge-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .badge-item i {
+            font-size: 1.8rem;
+            color: var(--primary-red);
+        }
+
+        .badge-text {
+            text-align: left;
+        }
+
+        .badge-text h4 {
+            font-family: var(--font-title);
+            font-size: 1.1rem;
+            color: var(--text-main);
+        }
+
+        .badge-text p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--primary-red);
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 1rem;
+        }
+
+        .disciplines-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .flip-card {
+            background-color: transparent;
+            width: 100%;
+            height: 420px;
+            perspective: 1000px;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .flip-card-front {
+            background-color: var(--bg-card);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2rem;
+        }
+
+        .flip-card-front img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            transition: transform 0.5s ease;
+        }
+
+        .flip-card:hover .flip-card-front img {
+            transform: scale(1.1);
+        }
+
+        .flip-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(10, 10, 12, 0.95) 0%, rgba(10, 10, 12, 0.3) 60%, transparent 100%);
+            z-index: 2;
+        }
+
+        .front-content {
+            position: relative;
+            z-index: 3;
+            text-align: left;
+        }
+
+        .discipline-tag {
+            background: var(--primary-red);
+            color: #fff;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 3px;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        .front-title {
+            font-family: var(--font-title);
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        .flip-card-back {
+            background-color: var(--bg-card-hover);
+            color: var(--text-main);
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2.5rem;
+            text-align: center;
+            border: 1px solid var(--primary-red);
+            box-shadow: inset 0 0 20px rgba(220, 38, 38, 0.2);
+        }
+
+        .back-icon {
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+        }
+
+        .back-title {
+            font-family: var(--font-title);
+            font-size: 1.6rem;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            color: var(--primary-red);
+        }
+
+        .back-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background-color: var(--bg-card);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary-red);
+        }
+
+        .product-img-wrap {
+            position: relative;
+            width: 100%;
+            height: 240px;
+            overflow: hidden;
+            background-color: #1a1a20;
+        }
+
+        .product-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-img-wrap img {
+            transform: scale(1.08);
+        }
+
+        .price-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(10, 10, 12, 0.85);
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            font-family: var(--font-title);
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            backdrop-filter: blur(4px);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-category {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.25rem;
+        }
+
+        .product-title {
+            font-family: var(--font-title);
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .product-rating {
+            color: var(--accent-gold);
+            font-size: 0.85rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .product-btn {
+            margin-top: auto;
+            width: 100%;
+            text-align: center;
+            background: transparent;
+            border: 1px solid var(--primary-red);
+            color: var(--text-main);
+            padding: 0.6rem;
+            border-radius: 4px;
+            font-family: var(--font-title);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        .product-btn:hover {
+            background: var(--primary-red);
+            color: #fff;
+            box-shadow: 0 4px 12px var(--primary-red-glow);
+        }
+
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .activity-card {
+            position: relative;
+            height: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .activity-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .activity-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .activity-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(10, 10, 12, 0.95) 10%, rgba(10, 10, 12, 0.4) 60%, transparent 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+            transition: background 0.3s ease;
+        }
+
+        .activity-card:hover .activity-overlay {
+            background: linear-gradient(to top, rgba(10, 10, 12, 0.98) 20%, rgba(220, 38, 38, 0.3) 100%);
+        }
+
+        .activity-title {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            color: var(--text-main);
+            margin-bottom: 0.25rem;
+        }
+
+        .activity-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .whatsapp-cta {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 999;
+            width: 60px;
+            height: 60px;
+            background-color: #25d366;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            animation: pulse-ring 2s infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 18px rgba(37, 211, 102, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+
+        .footer {
+            background-color: #070708;
+            border-top: 1px solid var(--border-color);
+            padding: 5rem 2rem 2rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-col h3 {
+            font-family: var(--font-title);
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            color: var(--text-main);
+            position: relative;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--primary-red);
+        }
+
+        .footer-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: var(--primary-red);
+            border-color: var(--primary-red);
+            transform: translateY(-3px);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-red);
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .newsletter-input {
+            padding: 0.8rem 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-main);
+            font-family: var(--font-body);
+            outline: none;
+        }
+
+        .newsletter-input:focus {
+            border-color: var(--primary-red);
+        }
+
+        .footer-bottom {
+            max-width: 1280px;
+            margin: 0 auto;
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-toggle-label {
+                display: block;
+            }
+
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(10, 10, 12, 0.98);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                border-bottom: 1px solid var(--border-color);
+                display: none;
+            }
+
+            .nav-toggle:checked ~ .nav-menu {
+                display: flex;
+            }
+
+            .hero-badges {
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-fire-flame-curved"></i> VALOR <span>& HONOR</span>
+            </a>
+            
+            <!-- Pure CSS Toggle Checkbox -->
+            <input type="checkbox" id="nav-toggle" class="nav-toggle">
+            <label for="nav-toggle" class="nav-toggle-label">
+                <i class="fa-solid fa-bars"></i>
+            </label>
+
+            <ul class="nav-menu">
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#disciplines" class="nav-link">Disciplines</a></li>
+                <li><a href="#gear" class="nav-link">Gear Store</a></li>
+                <li><a href="#programs" class="nav-link">Programs</a></li>
+                <li><a href="#contact" class="btn-cta">Join Dojang</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-subtitle"><i class="fa-solid fa-shield-halved"></i> Master the Warrior Spirit</span>
+            <h1 class="hero-title">Forge Strength, <span>Honor & Skill</span></h1>
+            <p class="hero-description">
+                Elite training in Karate, Kyokushin, Pencak Silat, Muay Thai, and Mixed Martial Arts. Transform your physical condition, master self-defense, and awaken your combat potential under championship instruction.
+            </p>
+            <div class="hero-buttons">
+                <a href="#disciplines" class="btn-cta">Explore Disciplines</a>
+                <a href="#gear" class="btn-secondary">Shop Equipment</a>
+            </div>
+
+            <div class="hero-badges">
+                <div class="badge-item">
+                    <i class="fa-solid fa-trophy"></i>
+                    <div class="badge-text">
+                        <h4>Champion Instructors</h4>
+                        <p>Certified Black Belts</p>
+                    </div>
+                </div>
+                <div class="badge-item">
+                    <i class="fa-solid fa-dumbbell"></i>
+                    <div class="badge-text">
+                        <h4>Pro Combat Facility</h4>
+                        <p>Full Octagon & Mats</p>
+                    </div>
+                </div>
+                <div class="badge-item">
+                    <i class="fa-solid fa-user-ninja"></i>
+                    <div class="badge-text">
+                        <h4>5 Distinct Combat Arts</h4>
+                        <p>All Experience Levels</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="disciplines">
+        <div class="section-header">
+            <h2 class="section-title">Martial Arts Disciplines</h2>
+            <p class="section-subtitle">Hover over cards to reveal discipline details</p>
+        </div>
+
+        <div class="disciplines-grid">
+            <!-- 1. Karate -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="https://images.unsplash.com/photo-1555597673-b21d5c935865?q=80&w=800&auto=format&fit=crop" alt="Traditional Karate Martial Arts" onerror="this.src='https://placehold.co/800x600/141418/ffffff?text=Karate+Martial+Arts'">
+                        <div class="flip-overlay"></div>
+                        <div class="front-content">
+                            <span class="discipline-tag">Traditional</span>
+                            <h3 class="front-title">Shotokan Karate</h3>
+                        </div>
+                    </div>
+                    <div class="flip-card-back">
+                        <i class="fa-solid fa-hand-fist back-icon"></i>
+                        <h3 class="back-title">Karate-Do</h3>
+                        <p class="back-desc">Focuses on form (Kata), linear striking, blocking, and mental discipline. Develop explosive power and laser-sharp precision.</p>
+                        <a href="#contact" class="btn-cta">Join Class</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Kyokushin -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=800&auto=format&fit=crop" alt="Kyokushin Full Contact Karate" onerror="this.src='https://placehold.co/800x600/141418/ffffff?text=Kyokushin+Karate'">
+                        <div class="flip-overlay"></div>
+                        <div class="front-content">
+                            <span class="discipline-tag">Full Contact</span>
+                            <h3 class="front-title">Kyokushin Karate</h3>
+                        </div>
+                    </div>
+                    <div class="flip-card-back">
+                        <i class="fa-solid fa-shield-cat back-icon"></i>
+                        <h3 class="back-title">The Ultimate Truth</h3>
+                        <p class="back-desc">Renowned for bare-knuckle conditioning, full-power strikes, and unbreakable mental fortitude under extreme pressure.</p>
+                        <a href="#contact" class="btn-cta">Join Class</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Pencak Silat -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?q=80&w=800&auto=format&fit=crop" alt="Pencak Silat Fighting Art" onerror="this.src='https://placehold.co/800x600/141418/ffffff?text=Pencak+Silat'">
+                        <div class="flip-overlay"></div>
+                        <div class="front-content">
+                            <span class="discipline-tag">Southeast Asian</span>
+                            <h3 class="front-title">Pencak Silat</h3>
+                        </div>
+                    </div>
+                    <div class="flip-card-back">
+                        <i class="fa-solid fa-person-ripping back-icon"></i>
+                        <h3 class="back-title">Pencak Silat</h3>
+                        <p class="back-desc">Fluid joint manipulation, sweeps, takedowns, and bladed weapon defense options based on centuries of tactical combat tradition.</p>
+                        <a href="#contact" class="btn-cta">Join Class</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Muay Thai -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=800&auto=format&fit=crop" alt="Muay Thai Kickboxing" onerror="this.src='https://placehold.co/800x600/141418/ffffff?text=Muay+Thai'">
+                        <div class="flip-overlay"></div>
+                        <div class="front-content">
+                            <span class="discipline-tag">Striking Art</span>
+                            <h3 class="front-title">Muay Thai</h3>
+                        </div>
+                    </div>
+                    <div class="flip-card-back">
+                        <i class="fa-solid fa-skull back-icon"></i>
+                        <h3 class="back-title">Art of 8 Limbs</h3>
+                        <p class="back-desc">Utilize fists, elbows, knees, and shins. Master lethal clinch work and crushing low kicks for devastating ring dominance.</p>
+                        <a href="#contact" class="btn-cta">Join Class</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. MMA -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="https://images.unsplash.com/photo-1517438322307-e67111335449?q=80&w=800&auto=format&fit=crop" alt="Mixed Martial Arts Octagon Fight" onerror="this.src='https://placehold.co/800x600/141418/ffffff?text=MMA+Combat'">
+                        <div class="flip-overlay"></div>
+                        <div class="front-content">
+                            <span class="discipline-tag">Modern Combat</span>
+                            <h3 class="front-title">Mixed Martial Arts</h3>
+                        </div>
+                    </div>
+                    <div class="flip-card-back">
+                        <i class="fa-solid fa-burst back-icon"></i>
+                        <h3 class="back-title">MMA Fusion</h3>
+                        <p class="back-desc">Seamlessly blend stand-up striking, wrestling takedowns, and submission grappling in high-intensity combat simulations.</p>
+                        <a href="#contact" class="btn-cta">Join Class</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="gear">
+        <div class="section-header">
+            <h2 class="section-title">Official Academy Gear</h2>
+            <p class="section-subtitle">Premium equipment for serious martial artists</p>
+        </div>
+
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <div class="product-img-wrap">
+                    <span class="price-badge">$89.99</span>
+                    <img src="https://images.unsplash.com/photo-1555597673-b21d5c935865?q=80&w=600&auto=format&fit=crop" alt="Kyokushin Heavyweight Gi" onerror="this.src='https://placehold.co/600x400/141418/ffffff?text=Kyokushin+Gi'">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Uniforms</span>
+                    <h3 class="product-title">Heavyweight Kyokushin Gi</h3>
+                    <div class="product-rating">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <a href="#contact" class="product-btn"><i class="fa-solid fa-cart-shopping"></i> Order Gear</a>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card">
+                <div class="product-img-wrap">
+                    <span class="price-badge">$45.00</span>
+                    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=600&auto=format&fit=crop" alt="Muay Thai Satin Shorts" onerror="this.src='https://placehold.co/600x400/141418/ffffff?text=Muay+Thai+Shorts'">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Apparel</span>
+                    <h3 class="product-title">Pro Satin Muay Thai Shorts</h3>
+                    <div class="product-rating">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <a href="#contact" class="product-btn"><i class="fa-solid fa-cart-shopping"></i> Order Gear</a>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card">
+                <div class="product-img-wrap">
+                    <span class="price-badge">$65.00</span>
+                    <img src="https://images.unsplash.com/photo-1517438322307-e67111335449?q=80&w=600&auto=format&fit=crop" alt="MMA Sparring Gloves" onerror="this.src='https://placehold.co/600x400/141418/ffffff?text=MMA+Gloves'">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Protection</span>
+                    <h3 class="product-title">Pro 4oz MMA Leather Gloves</h3>
+                    <div class="product-rating">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                    </div>
+                    <a href="#contact" class="product-btn"><i class="fa-solid fa-cart-shopping"></i> Order Gear</a>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card">
+                <div class="product-img-wrap">
+                    <span class="price-badge">$39.99</span>
+                    <img src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?q=80&w=600&auto=format&fit=crop" alt="Silat Karambit Wooden Trainer" onerror="this.src='https://placehold.co/600x400/141418/ffffff?text=Karambit+Trainer'">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Training Weapons</span>
+                    <h3 class="product-title">Silat Karambit Trainer</h3>
+                    <div class="product-rating">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <a href="#contact" class="product-btn"><i class="fa-solid fa-cart-shopping"></i> Order Gear</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="programs">
+        <div class="section-header">
+            <h2 class="section-title">Training & Activities</h2>
+            <p class="section-subtitle">Accelerate your progression through specialized workshops</p>
+        </div>
+
+        <div class="activities-grid">
+            <div class="activity-card">
+                <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=600&auto=format&fit=crop" alt="Controlled Sparring Session" onerror="this.src='https://placehold.co/600x400/141418/ffffff?text=Sparring'">
+                <div class="activity-overlay">
+                    <h3 class="activity-title">Live Sparring & Kumite</h3>
+                    <p class="activity-desc">Controlled fight practice testing real-time combat strategy.</p>
+                </div>
+            </div>
+
+            <div class="activity-card">
+                <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=600&auto=format&fit=crop" alt="Strength and Conditioning" onerror="this.src='https://placehold.co/600x400/141418/ffffff?text=Conditioning'">
+                <div class="activity-overlay">
+                    <h3 class="activity-title">Combat Conditioning</h3>
+                    <p class="activity-desc">High intensity explosive power and endurance training.</p>
+                </div>
+            </div>
+
+            <div class="activity-card">
+                <img src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?q=80&w=600&auto=format&fit=crop" alt="Tactical Self Defense" onerror="this.src='https://placehold.co/600x400/141418/ffffff?text=Self+Defense'">
+                <div class="activity-overlay">
+                    <h3 class="activity-title">Tactical Self-Defense</h3>
+                    <p class="activity-desc">Street-applicable response tactics based on Silat & Krav combat.</p>
+                </div>
+            </div>
+
+            <div class="activity-card">
+                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=600&auto=format&fit=crop" alt="Black Belt Workshops" onerror="this.src='https://placehold.co/600x400/141418/ffffff?text=Workshops'">
+                <div class="activity-overlay">
+                    <h3 class="activity-title">Master Workshops</h3>
+                    <p class="activity-desc">Seminars hosted by international champion guest masters.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <a href="https://wa.me/1234567890" target="_blank" class="whatsapp-cta" title="Contact Us on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <footer class="footer" id="contact">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>VALOR & HONOR</h3>
+                <p class="footer-desc">
+                    Dedicated to developing mental strength, physical perfection, and authentic combat effectiveness through martial arts mastery.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#about">About Academy</a></li>
+                    <li><a href="#disciplines">Martial Disciplines</a></li>
+                    <li><a href="#gear">Academy Store</a></li>
+                    <li><a href="#programs">Training Schedules</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>Contact Dojang</h3>
+                <p class="footer-desc"><i class="fa-solid fa-location-dot" style="color:var(--primary-red)"></i> 104 Warrior Avenue, Combat District</p>
+                <p class="footer-desc"><i class="fa-solid fa-phone" style="color:var(--primary-red)"></i> +1 (555) 987-6543</p>
+                <p class="footer-desc"><i class="fa-solid fa-envelope" style="color:var(--primary-red)"></i> info@valorhonor.com</p>
+            </div>
+
+            <div class="footer-col">
+                <h3>Newsletter Signup</h3>
+                <p class="footer-desc">Receive seminar updates & training guides.</p>
+                <form action="#" class="newsletter-form" onsubmit="return false;">
+                    <input type="email" class="newsletter-input" placeholder="Your Email Address" required>
+                    <button type="submit" class="btn-cta">Subscribe</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; {{ date('Y') }} VALOR & HONOR Martial Arts Academy. All Rights Reserved. Built with Pure HTML5 & CSS3.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

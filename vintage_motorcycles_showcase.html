@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vintage Motos | Antique & Rare Motorcycles</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            400: '#e5c158',
+                            500: '#d4af37',
+                            600: '#b38f28',
+                        },
+                        leather: {
+                            800: '#1e1a17',
+                            900: '#14110f',
+                            950: '#0d0b0a',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d0b0a;
+            color: #e5e5e5;
+            overflow-x: hidden;
+        }
+        
+        .font-serif-heading {
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d0b0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a2420;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4af37;
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #f3e5ab 0%, #d4af37 50%, #aa7c11 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gold-border-glow {
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .gold-border-glow:hover {
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.35);
+            border-color: rgba(212, 175, 55, 0.7);
+        }
+
+        .hero-overlay {
+            background: radial-gradient(circle at center, rgba(13,11,10,0.4) 0%, rgba(13,11,10,0.95) 100%);
+        }
+
+        /* Smooth Tab Transition */
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .tab-content.active {
+            display: block;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-50 bg-leather-950/90 backdrop-blur-md border-b border-gold-500/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
+                    <div class="w-10 h-10 rounded-full border-2 border-gold-500/60 flex items-center justify-center bg-leather-900 shadow-inner">
+                        <i class="fa-solid fa-motorcycle text-gold-500 text-lg"></i>
+                    </div>
+                    <div>
+                        <span class="font-serif-heading text-2xl font-bold tracking-wider gold-gradient-text block">VINTAGE MOTOS</span>
+                        <span class="text-[10px] text-amber-200/50 uppercase tracking-widest block -mt-1">Est. 1903 • Rare Machinery</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden md:flex space-x-8">
+                    <button onclick="switchTab('home')" class="nav-link text-gray-300 hover:text-gold-400 font-medium tracking-wide transition-colors py-2 border-b-2 border-transparent hover:border-gold-500" data-tab="home">Home</button>
+                    <button onclick="switchTab('models')" class="nav-link text-gray-300 hover:text-gold-400 font-medium tracking-wide transition-colors py-2 border-b-2 border-transparent hover:border-gold-500" data-tab="models">Models</button>
+                    <button onclick="switchTab('about')" class="nav-link text-gray-300 hover:text-gold-400 font-medium tracking-wide transition-colors py-2 border-b-2 border-transparent hover:border-gold-500" data-tab="about">Heritage</button>
+                    <button onclick="switchTab('contact')" class="nav-link text-gray-300 hover:text-gold-400 font-medium tracking-wide transition-colors py-2 border-b-2 border-transparent hover:border-gold-500" data-tab="contact">Contact</button>
+                </nav>
+
+                <!-- Action Button -->
+                <div class="hidden sm:flex items-center space-x-4">
+                    <button onclick="switchTab('models')" class="px-5 py-2.5 rounded-full text-xs uppercase tracking-widest font-semibold text-leather-950 bg-gradient-to-r from-gold-400 to-gold-600 hover:from-gold-500 hover:to-gold-400 transition-all shadow-md transform hover:-translate-y-0.5">
+                        Private Vault
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-gold-400 p-2 rounded-md focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-leather-900 border-b border-gold-500/20 px-4 pt-2 pb-6 space-y-3">
+            <button onclick="switchTab('home'); toggleMobileMenu();" class="block w-full text-left py-2 text-gray-300 hover:text-gold-400 font-medium">Home</button>
+            <button onclick="switchTab('models'); toggleMobileMenu();" class="block w-full text-left py-2 text-gray-300 hover:text-gold-400 font-medium">Models</button>
+            <button onclick="switchTab('about'); toggleMobileMenu();" class="block w-full text-left py-2 text-gray-300 hover:text-gold-400 font-medium">Heritage</button>
+            <button onclick="switchTab('contact'); toggleMobileMenu();" class="block w-full text-left py-2 text-gray-300 hover:text-gold-400 font-medium">Contact</button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-grow">
+
+        <!-- HOME TAB -->
+        <div id="tab-home" class="tab-content active">
+            <!-- Hero Section -->
+            <section class="relative min-h-[85vh] flex items-center justify-center bg-cover bg-center overflow-hidden" style="background-image: url('https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&q=80&w=1920');">
+                <div class="absolute inset-0 hero-overlay"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-leather-950 via-transparent to-leather-950/60"></div>
+                
+                <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20 z-10">
+                    <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border border-gold-500/30 bg-leather-900/80 backdrop-blur-md mb-6">
+                        <span class="w-2 h-2 rounded-full bg-gold-400 animate-pulse"></span>
+                        <span class="text-xs uppercase tracking-widest text-gold-400 font-medium">Curated Vintage Reserve</span>
+                    </div>
+
+                    <h1 class="font-serif-heading text-4xl sm:text-6xl md:text-7xl font-bold text-white tracking-tight leading-tight mb-6">
+                        Timeless Speed, <br>
+                        <span class="gold-gradient-text italic font-normal">Unrivaled Craftsmanship</span>
+                    </h1>
+
+                    <p class="max-w-2xl mx-auto text-base sm:text-lg text-amber-100/70 mb-10 font-light leading-relaxed">
+                        Discover the gold standard of motorcycling history. From rare pre-war racers to iconic British twins, explore rare pieces of automotive art preserved in pristine detail.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <button onclick="switchTab('models')" class="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-gold-500 to-gold-600 text-leather-950 font-bold tracking-wider text-sm uppercase shadow-lg hover:shadow-gold-500/20 hover:from-gold-400 hover:to-gold-500 transition-all transform hover:-translate-y-1">
+                            Explore Collection <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                        </button>
+                        <button onclick="openExternalProduct('brough-superior')" class="w-full sm:w-auto px-8 py-4 rounded-full border border-gold-500/40 text-gold-400 font-semibold tracking-wider text-sm uppercase hover:bg-gold-500/10 transition-all backdrop-blur-sm">
+                            <i class="fa-solid fa-up-right-from-square mr-2 text-xs"></i> Featured Lot #101
+                        </button>
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mt-16 pt-10 border-t border-gold-500/20">
+                        <div>
+                            <p class="font-serif-heading text-3xl text-gold-400 font-bold">1937</p>
+                            <p class="text-xs text-gray-400 uppercase tracking-wider mt-1">Golden Era Peak</p>
+                        </div>
+                        <div>
+                            <p class="font-serif-heading text-3xl text-gold-400 font-bold">100%</p>
+                            <p class="text-xs text-gray-400 uppercase tracking-wider mt-1">Authentic Parts</p>
+                        </div>
+                        <div>
+                            <p class="font-serif-heading text-3xl text-gold-400 font-bold">100 MPH</p>
+                            <p class="text-xs text-gray-400 uppercase tracking-wider mt-1">Guaranteed Speed</p>
+                        </div>
+                        <div>
+                            <p class="font-serif-heading text-3xl text-gold-400 font-bold">1 of 69</p>
+                            <p class="text-xs text-gray-400 uppercase tracking-wider mt-1">Extremely Rare</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Featured Antique Motorcycle Section -->
+            <section class="py-20 bg-leather-900 border-y border-gold-500/10">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12">
+                        <div>
+                            <span class="text-xs font-semibold tracking-widest text-gold-500 uppercase block mb-2">Crown Jewel of Collection</span>
+                            <h2 class="font-serif-heading text-3xl sm:text-4xl font-bold text-white">Featured Antique Masterpiece</h2>
+                        </div>
+                        <button onclick="switchTab('models')" class="mt-4 md:mt-0 text-gold-400 hover:text-gold-300 font-medium text-sm inline-flex items-center group">
+                            View All Motorcycles <i class="fa-solid fa-chevron-right ml-2 text-xs transition-transform group-hover:translate-x-1"></i>
+                        </button>
+                    </div>
+
+                    <!-- Main Highlight Card -->
+                    <div class="bg-leather-950 rounded-2xl overflow-hidden gold-border-glow grid grid-cols-1 lg:grid-cols-12 gap-0">
+                        <div class="lg:col-span-7 relative min-h-[350px] lg:min-h-[500px]">
+                            <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&q=80&w=1200" 
+                                 alt="1937 Brough Superior SS100" 
+                                 class="absolute inset-0 w-full h-full object-cover object-center"
+                                 onerror="this.src='https://placehold.co/1200x800/1a1715/d4af37?text=Brough+Superior+SS100'">
+                            <div class="absolute top-4 left-4 bg-leather-950/80 backdrop-blur-md px-3 py-1.5 rounded-full border border-gold-500/30 text-xs font-semibold text-gold-400">
+                                Rare Lot #101
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-5 p-8 sm:p-10 flex flex-col justify-between bg-gradient-to-br from-leather-950 via-leather-900 to-leather-950">
+                            <div>
+                                <div class="flex justify-between items-center mb-4">
+                                    <span class="text-xs uppercase tracking-widest text-gold-500 font-semibold">1937 Era</span>
+                                    <span class="text-sm font-semibold text-emerald-400 bg-emerald-950/80 border border-emerald-500/30 px-3 py-0.5 rounded-full">Auction Ready</span>
+                                </div>
+
+                                <h3 class="font-serif-heading text-2xl sm:text-3xl font-bold text-white mb-3">1937 Brough Superior SS100</h3>
+                                <p class="text-amber-100/60 text-sm leading-relaxed mb-6">
+                                    Known universally as the "Rolls-Royce of Motorcycles". Hand-crafted in Nottingham, England, each SS100 was guaranteed to exceed 100 mph before leaving the factory floor.
+                                </p>
+
+                                <!-- Key Specs Grid -->
+                                <div class="grid grid-cols-2 gap-4 mb-6 pt-4 border-t border-gold-500/10">
+                                    <div class="bg-leather-900/60 p-3 rounded-lg border border-gold-500/10">
+                                        <span class="text-[10px] text-gray-400 uppercase block">Engine</span>
+                                        <span class="text-sm font-semibold text-amber-200">998cc JAP V-Twin</span>
+                                    </div>
+                                    <div class="bg-leather-900/60 p-3 rounded-lg border border-gold-500/10">
+                                        <span class="text-[10px] text-gray-400 uppercase block">Power</span>
+                                        <span class="text-sm font-semibold text-amber-200">50 HP @ 4,800 RPM</span>
+                                    </div>
+                                    <div class="bg-leather-900/60 p-3 rounded-lg border border-gold-500/10">
+                                        <span class="text-[10px] text-gray-400 uppercase block">Top Speed</span>
+                                        <span class="text-sm font-semibold text-amber-200">110 MPH (177 km/h)</span>
+                                    </div>
+                                    <div class="bg-leather-900/60 p-3 rounded-lg border border-gold-500/10">
+                                        <span class="text-[10px] text-gray-400 uppercase block">Transmission</span>
+                                        <span class="text-sm font-semibold text-amber-200">3-Speed Norton-type</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex items-baseline justify-between mb-6">
+                                    <div>
+                                        <span class="text-xs text-gray-400 block uppercase">Estimated Value</span>
+                                        <span class="font-serif-heading text-2xl font-bold gold-gradient-text">$420,000 - $550,000</span>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-3">
+                                    <button onclick="openProductModal('brough-superior')" class="w-full py-3 px-4 rounded-xl bg-gold-500 hover:bg-gold-400 text-leather-950 font-semibold text-xs uppercase tracking-wider transition-colors text-center">
+                                        <i class="fa-solid fa-eye mr-1.5"></i> Quick View
+                                    </button>
+                                    <button onclick="openExternalProduct('brough-superior')" class="w-full py-3 px-4 rounded-xl border border-gold-500/40 text-gold-400 hover:bg-gold-500/10 font-semibold text-xs uppercase tracking-wider transition-colors text-center">
+                                        <i class="fa-solid fa-arrow-up-right-from-square mr-1.5"></i> Detail Tab
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- MODELS GALLERY TAB -->
+        <div id="tab-models" class="tab-content">
+            <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-xs font-semibold tracking-widest text-gold-500 uppercase block mb-2">Curated Antique Vault</span>
+                    <h2 class="font-serif-heading text-3xl sm:text-5xl font-bold text-white mb-4">Historic Motorcycles Collection</h2>
+                    <p class="text-amber-100/60 text-sm sm:text-base">Explore our museum-grade inventory of hand-selected antique motorcycles spanning the early 1900s through the late 1940s.</p>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                    <!-- Product Card 1 -->
+                    <div class="bg-leather-900 rounded-2xl overflow-hidden border border-gold-500/20 hover:border-gold-500/60 transition-all duration-300 flex flex-col justify-between group">
+                        <div>
+                            <div class="relative h-64 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&q=80&w=800" 
+                                     alt="1937 Brough Superior" 
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                     onerror="this.src='https://placehold.co/800x600/1a1715/d4af37?text=Brough+Superior'">
+                                <span class="absolute top-3 left-3 bg-leather-950/80 backdrop-blur-md text-gold-400 text-xs px-3 py-1 rounded-full border border-gold-500/30">
+                                    1937 • UK
+                                </span>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="font-serif-heading text-xl font-bold text-white mb-2 group-hover:text-gold-400 transition-colors">1937 Brough Superior SS100</h3>
+                                <p class="text-amber-100/60 text-xs leading-relaxed mb-4 line-clamp-2">The iconic British luxury racer with matching numbers JAP V-twin powertrain.</p>
+                                <div class="flex items-center justify-between text-xs text-gray-400 border-t border-gold-500/10 pt-4 mb-4">
+                                    <span><i class="fa-solid fa-gauge text-gold-500 mr-1"></i> 998cc</span>
+                                    <span><i class="fa-solid fa-bolt text-gold-500 mr-1"></i> 50 HP</span>
+                                    <span><i class="fa-solid fa-tachometer-alt text-gold-500 mr-1"></i> 110 MPH</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="px-6 pb-6 pt-0 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] text-gray-400 block">ESTIMATE</span>
+                                <span class="font-serif-heading font-bold text-gold-400 text-lg">$420,000</span>
+                            </div>
+                            <button onclick="openExternalProduct('brough-superior')" class="p-3 rounded-xl bg-leather-950 border border-gold-500/30 text-gold-400 hover:bg-gold-500 hover:text-leather-950 transition-all">
+                                <i class="fa-solid fa-arrow-up-right-from-square text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 2 -->
+                    <div class="bg-leather-900 rounded-2xl overflow-hidden border border-gold-500/20 hover:border-gold-500/60 transition-all duration-300 flex flex-col justify-between group">
+                        <div>
+                            <div class="relative h-64 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&q=80&w=800" 
+                                     alt="1923 Flying Merkel" 
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                     onerror="this.src='https://placehold.co/800x600/1a1715/d4af37?text=Flying+Merkel'">
+                                <span class="absolute top-3 left-3 bg-leather-950/80 backdrop-blur-md text-gold-400 text-xs px-3 py-1 rounded-full border border-gold-500/30">
+                                    1923 • USA
+                                </span>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="font-serif-heading text-xl font-bold text-white mb-2 group-hover:text-gold-400 transition-colors">1923 Flying Merkel V-Twin</h3>
+                                <p class="text-amber-100/60 text-xs leading-relaxed mb-4 line-clamp-2">Famous for its distinctive bright orange finish and pioneering rear mono-shock suspension.</p>
+                                <div class="flex items-center justify-between text-xs text-gray-400 border-t border-gold-500/10 pt-4 mb-4">
+                                    <span><i class="fa-solid fa-gauge text-gold-500 mr-1"></i> 998cc</span>
+                                    <span><i class="fa-solid fa-bolt text-gold-500 mr-1"></i> 17 HP</span>
+                                    <span><i class="fa-solid fa-tachometer-alt text-gold-500 mr-1"></i> 65 MPH</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="px-6 pb-6 pt-0 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] text-gray-400 block">ESTIMATE</span>
+                                <span class="font-serif-heading font-bold text-gold-400 text-lg">$185,000</span>
+                            </div>
+                            <button onclick="openExternalProduct('flying-merkel')" class="p-3 rounded-xl bg-leather-950 border border-gold-500/30 text-gold-400 hover:bg-gold-500 hover:text-leather-950 transition-all">
+                                <i class="fa-solid fa-arrow-up-right-from-square text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 3 -->
+                    <div class="bg-leather-900 rounded-2xl overflow-hidden border border-gold-500/20 hover:border-gold-500/60 transition-all duration-300 flex flex-col justify-between group">
+                        <div>
+                            <div class="relative h-64 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1558980664-3a031cf67ea8?auto=format&fit=crop&q=80&w=800" 
+                                     alt="1915 Cyclone Board Track Racer" 
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                     onerror="this.src='https://placehold.co/800x600/1a1715/d4af37?text=Cyclone+1915'">
+                                <span class="absolute top-3 left-3 bg-leather-950/80 backdrop-blur-md text-gold-400 text-xs px-3 py-1 rounded-full border border-gold-500/30">
+                                    1915 • USA
+                                </span>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="font-serif-heading text-xl font-bold text-white mb-2 group-hover:text-gold-400 transition-colors">1915 Cyclone Board Track Racer</h3>
+                                <p class="text-amber-100/60 text-xs leading-relaxed mb-4 line-clamp-2">Ultra-rare bevel-driven overhead-camshaft V-Twin racer engineered for lethal track speed.</p>
+                                <div class="flex items-center justify-between text-xs text-gray-400 border-t border-gold-500/10 pt-4 mb-4">
+                                    <span><i class="fa-solid fa-gauge text-gold-500 mr-1"></i> 996cc</span>
+                                    <span><i class="fa-solid fa-bolt text-gold-500 mr-1"></i> 45 HP</span>
+                                    <span><i class="fa-solid fa-tachometer-alt text-gold-500 mr-1"></i> 115 MPH</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="px-6 pb-6 pt-0 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] text-gray-400 block">ESTIMATE</span>
+                                <span class="font-serif-heading font-bold text-gold-400 text-lg">$750,000</span>
+                            </div>
+                            <button onclick="openExternalProduct('cyclone-racer')" class="p-3 rounded-xl bg-leather-950 border border-gold-500/30 text-gold-400 hover:bg-gold-500 hover:text-leather-950 transition-all">
+                                <i class="fa-solid fa-arrow-up-right-from-square text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+
+        <!-- ABOUT TAB -->
+        <div id="tab-about" class="tab-content">
+            <section class="py-16 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <span class="text-xs font-semibold tracking-widest text-gold-500 uppercase block mb-2">Our Custodianship</span>
+                    <h2 class="font-serif-heading text-3xl sm:text-5xl font-bold text-white">Preserving Automotive History</h2>
+                </div>
+
+                <div class="bg-leather-900 border border-gold-500/20 rounded-2xl p-8 sm:p-12 mb-12">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div>
+                            <h3 class="font-serif-heading text-2xl font-bold text-white mb-4">Dedicated to Pure Originality</h3>
+                            <p class="text-amber-100/70 text-sm leading-relaxed mb-4">
+                                Founded in 1988, Vintage Motos has served as the premier international hub for rare, pre-war, and post-war motorcycle acquisitions. Our team of master conservators specializes in period-accurate restorations and authentication.
+                            </p>
+                            <p class="text-amber-100/70 text-sm leading-relaxed">
+                                Every machine in our vault passes rigorous 120-point mechanical and historical provenance inspections before being offered to collectors worldwide.
+                            </p>
+                        </div>
+                        <div class="rounded-xl overflow-hidden border border-gold-500/20">
+                            <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&q=80&w=800" alt="Workshop Restoration" class="w-full h-auto">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- CONTACT TAB -->
+        <div id="tab-contact" class="tab-content">
+            <section class="py-16 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <span class="text-xs font-semibold tracking-widest text-gold-500 uppercase block mb-2">Private Concierge</span>
+                    <h2 class="font-serif-heading text-3xl sm:text-4xl font-bold text-white">Inquire About Acquisition</h2>
+                </div>
+
+                <div class="bg-leather-900 border border-gold-500/20 rounded-2xl p-8 sm:p-10">
+                    <form onsubmit="handleContactSubmit(event)" class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2">Full Name</label>
+                                <input type="text" required placeholder="Lord Sterling" class="w-full bg-leather-950 border border-gold-500/20 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-gold-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2">Email Address</label>
+                                <input type="email" required placeholder="collector@heritage.com" class="w-full bg-leather-950 border border-gold-500/20 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-gold-500">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2">Interested Lot / Model</label>
+                            <select class="w-full bg-leather-950 border border-gold-500/20 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-gold-500">
+                                <option>1937 Brough Superior SS100</option>
+                                <option>1923 Flying Merkel V-Twin</option>
+                                <option>1915 Cyclone Board Track Racer</option>
+                                <option>General Private Vault Inquiry</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2">Message</label>
+                            <textarea rows="4" required placeholder="Please provide details regarding provenance or viewing arrangements..." class="w-full bg-leather-950 border border-gold-500/20 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-gold-500"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-gold-500 to-gold-600 text-leather-950 font-bold text-xs uppercase tracking-widest hover:from-gold-400 hover:to-gold-500 transition-all shadow-md">
+                            Submit Inquiry
+                        </button>
+                    </form>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- FOOTER SECTION -->
+    <footer class="bg-leather-950 border-t border-gold-500/20 pt-16 pb-12 text-gray-400 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+                <!-- Col 1: Brand -->
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-8 h-8 rounded-full border border-gold-500 flex items-center justify-center bg-leather-900">
+                            <i class="fa-solid fa-motorcycle text-gold-500 text-xs"></i>
+                        </div>
+                        <span class="font-serif-heading text-lg font-bold text-white tracking-wider">VINTAGE MOTOS</span>
+                    </div>
+                    <p class="text-xs text-amber-100/50 leading-relaxed mb-4">
+                        Curators of world-renowned antique, classic, and historic motorcycles. Preserving the golden era of motorcycling engineering.
+                    </p>
+                </div>
+
+                <!-- Col 2: Navigation -->
+                <div>
+                    <h4 class="font-serif-heading text-white font-bold mb-4 uppercase text-xs tracking-widest border-b border-gold-500/20 pb-2">Navigation</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><button onclick="switchTab('home')" class="hover:text-gold-400 transition-colors">Home</button></li>
+                        <li><button onclick="switchTab('models')" class="hover:text-gold-400 transition-colors">Vintage Collection</button></li>
+                        <li><button onclick="switchTab('about')" class="hover:text-gold-400 transition-colors">Our Heritage</button></li>
+                        <li><button onclick="switchTab('contact')" class="hover:text-gold-400 transition-colors">Private Vault Inquiry</button></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Contact Info -->
+                <div>
+                    <h4 class="font-serif-heading text-white font-bold mb-4 uppercase text-xs tracking-widest border-b border-gold-500/20 pb-2">Vault Headquarters</h4>
+                    <p class="text-xs text-gray-400 mb-2"><i class="fa-solid fa-location-dot text-gold-500 mr-2"></i> 104 Heritage Way, Mayfair, London</p>
+                    <p class="text-xs text-gray-400 mb-2"><i class="fa-solid fa-phone text-gold-500 mr-2"></i> +44 20 7946 0912</p>
+                    <p class="text-xs text-gray-400"><i class="fa-solid fa-envelope text-gold-500 mr-2"></i> vault@vintagemotos.com</p>
+                </div>
+
+                <!-- Col 4: Newsletter -->
+                <div>
+                    <h4 class="font-serif-heading text-white font-bold mb-4 uppercase text-xs tracking-widest border-b border-gold-500/20 pb-2">Private Gazette</h4>
+                    <p class="text-xs text-gray-400 mb-3">Subscribe for rare auction announcements and private collection releases.</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Enter email..." class="bg-leather-900 border border-gold-500/20 rounded-l-lg px-3 py-2 text-xs text-white focus:outline-none w-full">
+                        <button onclick="showToast('Thank you for subscribing to our Gazette.')" class="bg-gold-500 hover:bg-gold-400 text-leather-950 px-3 rounded-r-lg font-bold text-xs">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gold-500/10 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500">
+                <p>&copy; 2026 Vintage Motos Reserve. All Rights Reserved.</p>
+                <div class="flex space-x-6 mt-4 sm:mt-0">
+                    <a href="#" class="hover:text-gold-400"><i class="fa-brands fa-instagram text-base"></i></a>
+                    <a href="#" class="hover:text-gold-400"><i class="fa-brands fa-facebook text-base"></i></a>
+                    <a href="#" class="hover:text-gold-400"><i class="fa-brands fa-youtube text-base"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- PRODUCT DETAIL MODAL -->
+    <div id="product-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="bg-leather-900 border border-gold-500/30 rounded-2xl max-w-3xl w-full p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gold-400 text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div id="modal-content">
+                <!-- Dynamic Content Loaded via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-gold-500 text-leather-950 px-6 py-3 rounded-xl shadow-xl font-medium text-xs uppercase tracking-wider transform translate-y-20 opacity-0 transition-all duration-300">
+        Message sent!
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Motorcycle Database
+        const motorcycleData = {
+            'brough-superior': {
+                name: '1937 Brough Superior SS100',
+                era: '1937 • England',
+                price: '$420,000 - $550,000',
+                engine: '998cc JAP Overhead Valve V-Twin',
+                power: '50 HP @ 4,800 RPM',
+                speed: '110 MPH (177 km/h)',
+                weight: '200 kg (441 lbs)',
+                image: 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&q=80&w=1200',
+                description: 'Described by T.E. Lawrence ("Lawrence of Arabia") as the finest motorcycle ever engineered. Every SS100 was personally tested by George Brough and guaranteed to achieve over 100 mph on public roads.',
+                history: 'Produced in Nottingham in 1937, this model features original matching-numbers engine components, twin Amal carburetors, and restored nickel-plated fuel tank accents.'
+            },
+            'flying-merkel': {
+                name: '1923 Flying Merkel V-Twin',
+                era: '1923 • United States',
+                price: '$185,000 - $220,000',
+                engine: '998cc Inlet-Over-Exhaust V-Twin',
+                power: '17 HP @ 3,200 RPM',
+                speed: '65 MPH (105 km/h)',
+                weight: '165 kg (363 lbs)',
+                image: 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&q=80&w=1200',
+                description: 'An iconic American pre-war classic famous for its signature bright orange color and advanced mono-shock rear suspension years ahead of its time.',
+                history: 'Constructed by Joseph Merkel in Middletown, Ohio. Features an automatic oiling system integrated with the throttle lever.'
+            },
+            'cyclone-racer': {
+                name: '1915 Cyclone Board Track Racer',
+                era: '1915 • United States',
+                price: '$750,000 - $900,000',
+                engine: '996cc Overhead Camshaft V-Twin',
+                power: '45 HP @ 5,000 RPM',
+                speed: '115 MPH (185 km/h)',
+                weight: '135 kg (297 lbs)',
+                image: 'https://images.unsplash.com/photo-1558980664-3a031cf67ea8?auto=format&fit=crop&q=80&w=1200',
+                description: 'One of the rarest and most legendary motorcycles in existence. Built purely for high-speed wooden board track arenas with no brakes or clutch.',
+                history: 'Designed by Andrew Strand. This unit is one of only 12 surviving original Cyclone engines recorded worldwide.'
+            }
+        };
+
+        // Tab Switching Function
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            const activeTab = document.getElementById(`tab-${tabId}`);
+            if (activeTab) {
+                activeTab.classList.add('active');
+            }
+
+            // Update Nav States
+            document.querySelectorAll('.nav-link').forEach(btn => {
+                if (btn.getAttribute('data-tab') === tabId) {
+                    btn.classList.add('text-gold-400', 'border-gold-500');
+                    btn.classList.remove('text-gray-300', 'border-transparent');
+                } else {
+                    btn.classList.remove('text-gold-400', 'border-gold-500');
+                    btn.classList.add('text-gray-300', 'border-transparent');
+                }
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Toggle Mobile Navigation Menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
+
+        // Open Modal Details
+        function openProductModal(id) {
+            const data = motorcycleData[id];
+            if (!data) return;
+
+            const modalContent = document.getElementById('modal-content');
+            modalContent.innerHTML = `
+                <div class="mb-6">
+                    <span class="text-xs uppercase tracking-widest text-gold-500 font-semibold">${data.era}</span>
+                    <h2 class="font-serif-heading text-2xl sm:text-3xl font-bold text-white mt-1">${data.name}</h2>
+                </div>
+                <div class="rounded-xl overflow-hidden mb-6 h-64 sm:h-80 relative border border-gold-500/20">
+                    <img src="${data.image}" alt="${data.name}" class="w-full h-full object-cover">
+                </div>
+                <p class="text-amber-100/80 text-sm leading-relaxed mb-6">${data.description}</p>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6 bg-leather-950 p-4 rounded-xl border border-gold-500/10">
+                    <div>
+                        <span class="text-[10px] text-gray-400 block uppercase">Engine</span>
+                        <span class="text-xs font-semibold text-amber-200">${data.engine}</span>
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-gray-400 block uppercase">Power</span>
+                        <span class="text-xs font-semibold text-amber-200">${data.power}</span>
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-gray-400 block uppercase">Top Speed</span>
+                        <span class="text-xs font-semibold text-amber-200">${data.speed}</span>
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-gray-400 block uppercase">Weight</span>
+                        <span class="text-xs font-semibold text-amber-200">${data.weight}</span>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between border-t border-gold-500/20 pt-6">
+                    <div>
+                        <span class="text-[10px] text-gray-400 block uppercase">Estimated Value</span>
+                        <span class="font-serif-heading font-bold text-gold-400 text-xl">${data.price}</span>
+                    </div>
+                    <button onclick="openExternalProduct('${id}')" class="px-5 py-2.5 rounded-xl bg-gold-500 text-leather-950 font-bold text-xs uppercase tracking-wider hover:bg-gold-400 transition-colors">
+                        Open Full Tab <i class="fa-solid fa-up-right-from-square ml-1 text-[10px]"></i>
+                    </button>
+                </div>
+            `;
+
+            const modal = document.getElementById('product-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeProductModal() {
+            const modal = document.getElementById('product-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Open Standalone Product Page in a NEW TAB
+        function openExternalProduct(id) {
+            const data = motorcycleData[id] || motorcycleData['brough-superior'];
+            
+            const htmlContent = `
+            <!DOCTYPE html>
+            <html lang="en" class="dark">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>${data.name} | Lot Specification</title>
+                <script src="https://cdn.tailwindcss.com"><\/script>
+                <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                <style>
+                    body { background-color: #0d0b0a; color: #e5e5e5; font-family: 'Inter', sans-serif; }
+                    .font-serif-heading { font-family: 'Playfair Display', serif; }
+                    .gold-gradient { background: linear-gradient(135deg, #f3e5ab 0%, #d4af37 50%, #aa7c11 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+                </style>
+            </head>
+            <body class="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-leather-950">
+                <div class="max-w-4xl mx-auto bg-leather-900 border border-amber-500/30 rounded-3xl overflow-hidden shadow-2xl">
+                    <div class="relative h-96">
+                        <img src="${data.image}" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-leather-900 via-transparent to-black/60"></div>
+                        <div class="absolute top-6 left-6 bg-black/60 backdrop-blur-md px-4 py-1.5 rounded-full border border-amber-500/30 text-amber-400 text-xs font-semibold">
+                            ${data.era}
+                        </div>
+                    </div>
+                    <div class="p-8 sm:p-12 -mt-12 relative z-10">
+                        <h1 class="font-serif-heading text-3xl sm:text-5xl font-bold text-white mb-4">${data.name}</h1>
+                        <p class="text-amber-100/80 text-base leading-relaxed mb-8">${data.description}</p>
+                        
+                        <h3 class="font-serif-heading text-xl font-bold text-amber-400 mb-4 border-b border-amber-500/20 pb-2">Technical Specifications</h3>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                            <div class="bg-black/40 p-4 rounded-xl border border-amber-500/10">
+                                <span class="text-xs text-gray-400 uppercase block">Engine</span>
+                                <span class="text-sm font-semibold text-white">${data.engine}</span>
+                            </div>
+                            <div class="bg-black/40 p-4 rounded-xl border border-amber-500/10">
+                                <span class="text-xs text-gray-400 uppercase block">Power</span>
+                                <span class="text-sm font-semibold text-white">${data.power}</span>
+                            </div>
+                            <div class="bg-black/40 p-4 rounded-xl border border-amber-500/10">
+                                <span class="text-xs text-gray-400 uppercase block">Speed</span>
+                                <span class="text-sm font-semibold text-white">${data.speed}</span>
+                            </div>
+                            <div class="bg-black/40 p-4 rounded-xl border border-amber-500/10">
+                                <span class="text-xs text-gray-400 uppercase block">Weight</span>
+                                <span class="text-sm font-semibold text-white">${data.weight}</span>
+                            </div>
+                        </div>
+
+                        <h3 class="font-serif-heading text-xl font-bold text-amber-400 mb-4 border-b border-amber-500/20 pb-2">Provenance & History</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed mb-8">${data.history}</p>
+
+                        <div class="bg-gradient-to-r from-amber-500/10 to-transparent p-6 rounded-2xl border border-amber-500/30 flex flex-col sm:flex-row items-center justify-between">
+                            <div>
+                                <span class="text-xs uppercase text-gray-400 block">Auction Reserve Estimate</span>
+                                <span class="font-serif-heading text-3xl font-bold gold-gradient">${data.price}</span>
+                            </div>
+                            <button onclick="alert('Inquiry request registered for this Lot. A specialist will contact you.')" class="mt-4 sm:mt-0 px-8 py-3 bg-amber-500 text-black font-bold rounded-xl hover:bg-amber-400 uppercase text-xs tracking-wider">
+                                Register Bid Inquiry
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </body>
+            </html>
+            `;
+
+            const newWindow = window.open();
+            if (newWindow) {
+                newWindow.document.write(htmlContent);
+                newWindow.document.close();
+            } else {
+                alert('Popup blocker prevented opening the new tab. Please allow popups for this site.');
+            }
+        }
+
+        // Contact Form Handler
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            showToast('Your inquiry has been submitted to our private vault team.');
+            event.target.reset();
+        }
+
+        // Toast Helper
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.innerText = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+
+        // Initialize default tab
+        switchTab('home');
+    </script>
+</body>
+</html>
